@@ -26,3 +26,7 @@ git push heroku master
 
 ## Production version URL
 [https://magic-midi.herokuapp.com/](https://magic-midi.herokuapp.com/)
+
+## Preview
+
+![Magic Midi Screen](/magic-midi-screen.png)
