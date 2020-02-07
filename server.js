@@ -1,12 +1,12 @@
-var express = require('express')
-var path = require('path')
+const express = require('express')
+const path = require('path')
 const bodyParser = require('body-parser')
-var serveStatic = require('serve-static')
-var fs = require('fs')
-var midi = require('jsmidgen')
+const serveStatic = require('serve-static')
+const fs = require('fs')
+const midi = require('jsmidgen')
 
 // server setup
-var app = express()
+const app = express()
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(serveStatic(__dirname))
@@ -27,7 +27,7 @@ app.get('/api/midi/:id', function (req, res) {
     res.json({ message: `Parameter 'id' is required` })
   } else {
     // define file path
-    let file = __dirname + '/files/' + req.params.id + '.mid'
+    const file = __dirname + '/files/' + req.params.id + '.mid'
 
     if (fs.existsSync(file)) {
       // send response
@@ -47,7 +47,7 @@ app.post('/api/midi', function (req, res) {
   // pulse per quarter note
   const PPQ = 128
 
-  let ratio = 60000 / (BPM * PPQ)
+  const ratio = 60000 / (BPM * PPQ)
 
   if (!req.body.parameters || !req.body.programs || !req.body.notes) {
     // send error response
@@ -62,8 +62,8 @@ app.post('/api/midi', function (req, res) {
     let notes = req.body.notes
 
     // create midi file and track
-    let track = new midi.Track()
-    let file = new midi.File()
+    const track = new midi.Track()
+    const file = new midi.File()
     file.addTrack(track)
 
     // set tempo
@@ -92,17 +92,17 @@ app.post('/api/midi', function (req, res) {
     }
 
     // create dir
-    let dir = __dirname + '/files/'
+    const dir = __dirname + '/files/'
     if (!fs.existsSync(dir)) {
       fs.mkdirSync(dir)
     }
 
     // save file
-    let indices = fs.readdirSync(dir)
-                    .filter(file => file.split('.')[1] === 'mid')
-                    .map(file => parseInt(file.split('.')[0]))
-    let id = indices.length > 0 ? Math.max(...indices) + 1 : 0
-    let filename = id + '.mid'
+    const indices = fs.readdirSync(dir)
+                      .filter(file => file.split('.')[1] === 'mid')
+                      .map(file => parseInt(file.split('.')[0]))
+    const id = indices.length > 0 ? Math.max(...indices) + 1 : 0
+    const filename = id + '.mid'
     fs.writeFileSync(dir + filename, file.toBytes(), 'binary')
 
     // send response
@@ -111,5 +111,5 @@ app.post('/api/midi', function (req, res) {
 })
 
 // run server
-var port = process.env.PORT
+const port = process.env.PORT
 app.listen(port, () => console.log('Server running on port ' + port + '...'))

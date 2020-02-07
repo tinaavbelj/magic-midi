@@ -9,7 +9,7 @@
 npm install
 
 # run server
-npm run server
+npm run serve
 
 # build and watch in development mode
 npm run dev

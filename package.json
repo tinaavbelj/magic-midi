@@ -28,7 +28,7 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development PORT=$npm_package_config_port webpack-dev-server --open --hot",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules",
-    "server": "cross-env PORT=$npm_package_config_port nodemon --watch server.js server.js",
+    "serve": "cross-env PORT=$npm_package_config_port nodemon --watch server.js server.js",
     "lint": "eslint --ext .js,.vue --env browser src webpack.config.js",
     "precommit": "npm run lint",
     "postinstall": "npm run build",
